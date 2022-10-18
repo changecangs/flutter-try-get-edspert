@@ -2,6 +2,7 @@ import 'package:book_app_edspert/Controller/HomepageController.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:book_app_edspert/View/BookDetail.dart';
 
 class HomePage extends StatefulWidget{
   const HomePage({Key? key}) : super(key: key);
@@ -23,15 +24,17 @@ class _HomePage extends State<HomePage>{
       appBar: AppBar(title: const Center(child: Text('Book Catalog'))),
       body: Consumer<HomePageController>(
         builder: (context,controller, child) => Container(
-          child: ListView.builder(
+          child: homePageController!.bookGet == null ?
+              const Center(child: CircularProgressIndicator())
+              : ListView.builder(
               itemCount: homePageController!.bookGet!.bookList!.length,
               itemBuilder: (context, index) {
                 final currentBook = homePageController!.bookGet!.bookList![index];
                 return GestureDetector(
                   onTap: () {
-                    // Navigator.of(context).push(MaterialPageRoute(
-                    //     builder: (context) =>
-                    //         DetailBookPage(isbn: currentBook.isbn13!)));
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) =>
+                            BookDetail(isbn: currentBook.isbn13!)));
                   },
                   child: Row(
                     children: [
