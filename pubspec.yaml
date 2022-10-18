@@ -41,7 +41,7 @@ dependencies:
   get:
   dio:
   json_serializable:
-  
+
 
 
 dev_dependencies:
