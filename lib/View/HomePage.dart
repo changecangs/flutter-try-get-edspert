@@ -21,7 +21,44 @@ class _HomePage extends State<HomePage>{
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Center(child: Text('Book Catalog'))),
-    );
+      body: Consumer<HomePageController>(
+        builder: (context,controller, child) => Container(
+          child: ListView.builder(
+              itemCount: homePageController!.bookGet!.bookList!.length,
+              itemBuilder: (context, index) {
+                final currentBook = homePageController!.bookGet!.bookList![index];
+                return GestureDetector(
+                  onTap: () {
+                    // Navigator.of(context).push(MaterialPageRoute(
+                    //     builder: (context) =>
+                    //         DetailBookPage(isbn: currentBook.isbn13!)));
+                  },
+                  child: Row(
+                    children: [
+                      Image.network(
+                        currentBook.image!,
+                        height: 250,
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding:
+                          const EdgeInsets.symmetric(horizontal: 12.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(currentBook.title!),
+                              Text(currentBook.subtitle!),
+                            ],
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                );
+              }),
+          ),
+        ),
+      );
   }
 
 }
